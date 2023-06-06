@@ -1,0 +1,70 @@
+﻿@page "/"
+@using BT.TodoListApplication.BL;
+@using BT.TodoListApplication.BL.Models;
+@using BT.TodoListApplication.DB.Helper;
+
+<head>
+    <link rel="stylesheet" href="./css/pages/todo.css">
+</head>
+<body>
+    <h1>Bhuwan's Todo</h1>
+    @* Text Field to get data and then set it in the object created below *@
+
+    <EditForm Model="todoItem" OnSubmit="@AddItemToList" class="d-flex justify-content-center" style=" gap: 40px; max-width: 400px; margin: auto;">
+        <InputText class="form-control" id="name" @bind-Value="todoItem.ItemName" />
+        <button class ="btn btn-primary" type="submit">Submit</button>
+    </EditForm>
+    @* Displaying the data *@
+    <div style="margin-top: 40px;">
+        <table class="table bg-light" id="todo_table">
+            <thead>
+                <tr>
+                    <th scope="col">List Name</th>
+                    <th style="width: 0px;"></th>
+                </tr>
+            </thead>
+            <tbody> 
+                @foreach (TodoItem todoListData in TodoList)
+                {
+                    <tr>
+                        <td>@todoListData.ItemName</td>
+                        <td><button class="btn btn-primary" @onclick="() => RemoveItemFromList(todoListData)">Remove</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+
+@code {
+    // C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\
+
+    // Making a model so that the EditForm can use it
+    TodoItem todoItem = new TodoItem();
+    private List<TodoItem> TodoList = new List<TodoItem>();
+    /* This gets called when the components are initialized */
+    protected override void OnInitialized()
+    {
+        TodoList = TodoManager.getAllItems();
+        if(!(TodoList.Count > 0))
+        {
+            TodoList.Add(new TodoItem("Mango"));
+            TodoList.Add(new TodoItem("Apple"));
+            TodoList.Add(new TodoItem("Momo"));
+            TodoList.Add(new TodoItem("ChowMein"));
+        }
+    }
+    private void RemoveItemFromList(TodoItem data)
+    {
+        TodoList.Remove(data);
+    }
+    private void AddItemToList()
+    {
+        TodoList.Add(todoItem);
+        todoItem = new TodoItem();
+    }
+}
+
+
+

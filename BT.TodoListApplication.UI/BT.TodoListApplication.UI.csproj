@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-BT.TodoListApplication.UI-4311816d-cb06-4c71-8286-7aa4b559a65f</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BT.TodoApplication.BL\BT.TodoListApplication.BL.csproj" />
+    <ProjectReference Include="..\BT.TodoListApplication.BL.Models\BT.TodoListApplication.BL.Models.csproj" />
+    <ProjectReference Include="..\BT.TodoListApplication.DB.Helper\BT.TodoListApplication.DB.Helper.csproj" />
+  </ItemGroup>
+
+</Project>

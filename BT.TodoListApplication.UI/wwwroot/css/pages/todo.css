@@ -1,0 +1,26 @@
+﻿
+h1 {
+    background-clip: text;
+    text-align: center;
+    color: transparent;
+    font-size: 35px;
+    opacity: 100%;
+    font-weight: 700;
+    letter-spacing: -1.456px;
+    line-height: 112px;
+    background: linear-gradient(90deg, rgb(181, 255, 211) 0.02%, rgb(209, 164, 255) 39.16%, rgb(255, 165, 175) 75.82%, rgb(255, 220, 164) 112%) text;
+}
+
+
+#todo_table {
+    max-width: 450px;
+    margin: auto;
+    text-align: center;
+}
+#todo_table th {
+    font-size: 30px;
+}
+#todo_table td {
+    font-size: 20px;
+    text-align: left;
+}
