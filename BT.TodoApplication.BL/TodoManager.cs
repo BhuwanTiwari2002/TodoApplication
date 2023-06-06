@@ -25,5 +25,19 @@ namespace BT.TodoListApplication.BL
                 throw ex;
             }
         }
+        public static int insertItem(TodoItem item)
+        {
+            try
+            {
+                DatabaseHelper databaseHelper = new DatabaseHelper();   
+                var dataTable = databaseHelper.sendSQLCommand("INSERT INTO TodoList " +
+                                                              "(Id, ItemName, ItemDescription) " +
+                                                              $"VALUES ('{item.Id}','{item.ItemName}','{item.ItemDescription}');");
+                return dataTable.GetChanges().Rows.Count;
+            } catch(Exception ex) {
+                throw ex;
+            }
+        }
+    
     }
 }

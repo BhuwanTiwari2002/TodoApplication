@@ -61,8 +61,10 @@
     }
     private void AddItemToList()
     {
-        TodoList.Add(todoItem);
-        todoItem = new TodoItem();
+        TodoManager.insertItem(todoItem);
+        todoItem.ItemDescription = "Test";
+        TodoList = TodoManager.getAllItems();
+        todoItem = new TodoItem(); // Reseting the new Item to empty again
     }
 }
 

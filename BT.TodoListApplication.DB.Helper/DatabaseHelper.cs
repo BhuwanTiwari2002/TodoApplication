@@ -24,8 +24,9 @@ namespace BT.TodoListApplication.DB.Helper
             {
                 throw;
             }
-
         }
+
+       
         public DatabaseHelper(string command)
         {
             data = sendSQLCommand(command);
