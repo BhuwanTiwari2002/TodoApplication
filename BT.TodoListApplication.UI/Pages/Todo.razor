@@ -16,6 +16,7 @@
         <InputText class="form-control" type="time" @bind-Value="itemTime" />
         <button class ="btn btn-primary" type="submit">Submit</button>
     </EditForm>
+
     @* Displaying the data *@
     <div id="todo-table-parent" >
         <table class="table bg-light" id="todo_table">
@@ -23,8 +24,8 @@
                 <tr>
                     <th scope="col">Item Name</th>
                     <th style="width: 0px;">Dates</th>
-                    <th style="width: 0px;"></th>
                     <th style="width: 10px;"></th>
+                    <th style="width: 0px;"></th>
                 </tr>
             </thead>
             <tbody> 
@@ -43,7 +44,6 @@
                                 <InputText placeholder="Item Name" style="font-size: 25px;" class="form-control" id="name" @bind-Value="@todoListData.ItemName"></InputText>
                             </td>
                             <td style="width: 230px !important; font-size: 19px;">@todoListData.ItemTime</td>
-
                             <td><button class="btn btn-primary" @onclick="() => UpdateItemFromEditMode(todoListData)">Save</button></td>
                             <td><button class="btn btn-primary" @onclick="CancelItemFromEditMode">Cancel</button></td>
                         }
