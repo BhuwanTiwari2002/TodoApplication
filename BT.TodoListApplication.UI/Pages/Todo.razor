@@ -11,9 +11,13 @@
     @* Text Field to get data and then set it in the object created below *@
 
     <EditForm Model="todoItem" OnSubmit="@AddItemToList" class="d-flex justify-content-center" style=" gap: 40px; max-width: 1000px; margin: auto;">
-        <InputText placeholder="Item Name" class="form-control" id="name" @bind-Value="todoItem.ItemName" />
-        <InputText class="form-control" type="date" @bind-Value="itemDate" />
-        <InputText class="form-control" type="time" @bind-Value="itemTime" />
+        <InputText placeholder="What is your next Task?" class="form-control" id="name" @bind-Value="todoItem.ItemName" />
+        <div class="input-group-append">
+            <span class="input-group-text">
+                <InputText class="form-control" type="date" @bind-Value="itemDate" />
+                <InputText class="form-control" type="time" @bind-Value="itemTime" />
+            </span>
+        </div>
         <button class ="btn btn-primary" type="submit">Submit</button>
     </EditForm>
 
