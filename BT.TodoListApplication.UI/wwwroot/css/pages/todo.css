@@ -11,16 +11,31 @@ h1 {
     background: linear-gradient(90deg, rgb(181, 255, 211) 0.02%, rgb(209, 164, 255) 39.16%, rgb(255, 165, 175) 75.82%, rgb(255, 220, 164) 112%) text;
 }
 
+#todo-table-parent {
+    margin-top: 40px;
+    overflow: hidden;
+}
 
 #todo_table {
-    max-width: 450px;
+    max-width: 1000px;
+    border-radius: 20px;
     margin: auto;
     text-align: center;
 }
 #todo_table th {
     font-size: 30px;
+    color: white;
+    background: #8e2de2;
+}
+#todo_table th:first-child {
+    border-top-left-radius: 20px;
+}
+#todo_table th:last-child {
+    border-top-right-radius: 20px;
 }
 #todo_table td {
-    font-size: 20px;
+    font-size: 25px;
     text-align: left;
+    border-bottom-color: black;
 }
+

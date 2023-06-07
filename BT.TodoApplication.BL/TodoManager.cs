@@ -16,7 +16,7 @@ namespace BT.TodoListApplication.BL
                 var dataTable = databaseHelper.sendSQLCommand("SELECT * FROM TodoList;");
                 foreach (DataRow dataRow in dataTable.Rows)
                 {
-                    TodoItem item = new TodoItem(int.Parse(dataRow["Id"].ToString()), dataRow["ItemName"].ToString(), dataRow["ItemDescription"].ToString()); 
+                    TodoItem item = new TodoItem(int.Parse(dataRow["Id"].ToString()), dataRow["ItemName"].ToString(), dataRow["ItemDescription"].ToString(), DateTime.Parse(dataRow["ItemTime"].ToString()));
                     items.Add(item);
                 }
                 return items;
@@ -32,8 +32,8 @@ namespace BT.TodoListApplication.BL
             {
                 DatabaseHelper databaseHelper = new DatabaseHelper();   
                 var dataTable = databaseHelper.sendSQLCommand("INSERT INTO TodoList " +
-                                                              "(ItemName, ItemDescription) " +
-                                                              $"VALUES ('{item.ItemName}','{item.ItemDescription}');");
+                                                              "(ItemName, ItemDescription,ItemTime) " +
+                                                              $"VALUES ('{item.ItemName}','{item.ItemDescription}','{item.ItemTime}');");
                 return 1;
             } catch(Exception ex) {
                 throw ex;

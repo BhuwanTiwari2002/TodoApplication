@@ -10,16 +10,19 @@
     <h1>Bhuwan's Todo</h1>
     @* Text Field to get data and then set it in the object created below *@
 
-    <EditForm Model="todoItem" OnSubmit="@AddItemToList" class="d-flex justify-content-center" style=" gap: 40px; max-width: 400px; margin: auto;">
-        <InputText class="form-control" id="name" @bind-Value="todoItem.ItemName" />
+    <EditForm Model="todoItem" OnSubmit="@AddItemToList" class="d-flex justify-content-center" style=" gap: 40px; max-width: 1000px; margin: auto;">
+        <InputText placeholder="Item Name" class="form-control" id="name" @bind-Value="todoItem.ItemName" />
+        <InputText class="form-control" type="date" @bind-Value="itemDate" />
+        <InputText class="form-control" type="time" @bind-Value="itemTime" />
         <button class ="btn btn-primary" type="submit">Submit</button>
     </EditForm>
     @* Displaying the data *@
-    <div style="margin-top: 40px;">
+    <div id="todo-table-parent" >
         <table class="table bg-light" id="todo_table">
             <thead>
                 <tr>
-                    <th scope="col">List Name</th>
+                    <th scope="col">Item Name</th>
+                    <th style="width: 0px;">Dates</th>
                     <th style="width: 0px;"></th>
                 </tr>
             </thead>
@@ -28,6 +31,7 @@
                 {
                     <tr>
                         <td>@todoListData.ItemName</td>
+                        <td style="width: 210px !important; font-size: 19px;">@todoListData.ItemTime</td>
                         <td><button class="btn btn-primary" @onclick="() => RemoveItemFromList(todoListData)">Remove</button></td>
                     </tr>
                 }
@@ -42,6 +46,10 @@
 
     // Making a model so that the EditForm can use it
     TodoItem todoItem = new TodoItem();
+    // Storing the time into a string to be later then converted back into DateTime 
+    private string itemTime;
+    private string itemDate;
+
     private List<TodoItem> TodoList = new List<TodoItem>();
     /* This gets called when the components are initialized */
     protected override void OnInitialized()
@@ -67,6 +75,8 @@
     private void AddItemToList()
     {
         todoItem.ItemDescription = "Test";
+        TimeSpan timeSpan = TimeSpan.Parse(itemTime);
+        todoItem.ItemTime = DateTime.Parse(itemDate).Date.Add(timeSpan);
         TodoManager.insertItem(todoItem);
         TodoList = TodoManager.getAllItems();
         todoItem = new TodoItem(); // Reseting the new Item to empty again
