@@ -24,6 +24,7 @@
                     <th scope="col">Item Name</th>
                     <th style="width: 0px;">Dates</th>
                     <th style="width: 0px;"></th>
+                    <th style="width: 10px;"></th>
                 </tr>
             </thead>
             <tbody> 
@@ -32,6 +33,7 @@
                     <tr>
                         <td>@todoListData.ItemName</td>
                         <td style="width: 230px !important; font-size: 19px;">@todoListData.ItemTime</td>
+                        <td><button class="btn btn-primary" @onclick="EditItemFromList">Edit</button></td>
                         <td><button class="btn btn-primary" @onclick="() => RemoveItemFromList(todoListData)">Remove</button></td>
                     </tr>
                 }
@@ -81,6 +83,11 @@
         TodoList = TodoManager.getAllItems();
         todoItem = new TodoItem(); // Reseting the new Item to empty again
     }
+    private void EditItemFromList()
+    {
+        
+    }
+
 }
 
 
