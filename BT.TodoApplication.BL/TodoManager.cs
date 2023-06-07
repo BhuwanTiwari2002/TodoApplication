@@ -50,5 +50,19 @@ namespace BT.TodoListApplication.BL
                 throw ex;
             }
         }
+   
+        public static int updateItem(TodoItem item)
+        {
+            try
+            {
+                DatabaseHelper databaseHelper = new DatabaseHelper();
+                var dataTable = databaseHelper.sendSQLCommand("UPDATE TodoList SET ItemName = " +
+                                                              $"'{item.ItemName}' WHERE ${item.Id} = Id;");
+                return 1;
+            } catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

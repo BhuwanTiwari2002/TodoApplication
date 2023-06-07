@@ -40,11 +40,11 @@
                         } else
                         {
                             <td>
-                                <InputText placeholder="Item Name" class="form-control" id="name" @bind-Value="@todoListData.ItemName"></InputText>
+                                <InputText placeholder="Item Name" style="font-size: 25px;" class="form-control" id="name" @bind-Value="@todoListData.ItemName"></InputText>
                             </td>
                             <td style="width: 230px !important; font-size: 19px;">@todoListData.ItemTime</td>
 
-                            <td><button class="btn btn-primary" @onclick="UpdateItemFromEditMode">Save</button></td>
+                            <td><button class="btn btn-primary" @onclick="() => UpdateItemFromEditMode(todoListData)">Save</button></td>
                             <td><button class="btn btn-primary" @onclick="CancelItemFromEditMode">Cancel</button></td>
                         }
                     </tr>
@@ -88,20 +88,35 @@
     }
     private void AddItemToList()
     {
-        todoItem.ItemDescription = "Test";
-        TimeSpan timeSpan = TimeSpan.Parse(itemTime);
-        todoItem.ItemTime = DateTime.Parse(itemDate).Date.Add(timeSpan);
-        TodoManager.insertItem(todoItem);
-        TodoList = TodoManager.getAllItems();
-        todoItem = new TodoItem(); // Reseting the new Item to empty again
+        try
+        {
+            todoItem.ItemDescription = "Test";
+            TimeSpan timeSpan = TimeSpan.Parse(itemTime);
+            todoItem.ItemTime = DateTime.Parse(itemDate).Date.Add(timeSpan);
+            TodoManager.insertItem(todoItem);
+            TodoList = TodoManager.getAllItems();
+            todoItem = new TodoItem(); // Reseting the new Item to empty again
+        } catch(Exception ex)
+        {
+            throw ex;
+        }
+
     }
     private void EditItemFromList(TodoItem data)
     {
         editingId = data.Id;
     }
-    private void UpdateItemFromEditMode()
+    private void UpdateItemFromEditMode(TodoItem data)
     {
-        editingId = 0;
+        try
+        {
+            TodoManager.updateItem(data);
+            editingId = 0;
+            TodoList = TodoManager.getAllItems();
+        } catch(Exception ex) {
+            throw ex;
+        }
+
     }
     private void CancelItemFromEditMode()
     {
