@@ -57,12 +57,17 @@
     }
     private void RemoveItemFromList(TodoItem data)
     {
-        TodoList.Remove(data);
+        try {
+            TodoManager.deleteItem(data);
+            TodoList = TodoManager.getAllItems();
+        } catch(Exception ex) {
+            throw ex;
+        }
     }
     private void AddItemToList()
     {
-        TodoManager.insertItem(todoItem);
         todoItem.ItemDescription = "Test";
+        TodoManager.insertItem(todoItem);
         TodoList = TodoManager.getAllItems();
         todoItem = new TodoItem(); // Reseting the new Item to empty again
     }
