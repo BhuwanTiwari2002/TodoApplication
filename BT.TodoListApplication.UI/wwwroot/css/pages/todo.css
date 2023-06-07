@@ -41,3 +41,31 @@ tr:nth-child(even) {
    background: rgba(203, 195, 227, 2);
    border: none;
 }
+
+.TodoInput {
+    background: #8e2de2;
+    border: 0px white solid;
+    color: white;
+}
+
+.TodoInputa::placeholder {
+    color: white;
+}
+.input-group-placeholder {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    color: #999999;
+    font-style: italic;
+}
+
+#ItemNameTextField::placeholder {
+    color: white !important;
+}
+#ItemNameTextField::placeholder {
+    color: white !important;
+}
+#ItemNameTextField {
+    border: 0px solid white !important;
+    background: #8e2de2;
+}

@@ -10,15 +10,15 @@
     <h1 id="heading_purple">Bhuwan's Todo</h1>
     @* Text Field to get data and then set it in the object created below *@
 
-    <EditForm Model="todoItem" OnSubmit="@AddItemToList" class="d-flex justify-content-center" style=" gap: 40px; max-width: 1000px; margin: auto;">
-        <InputText placeholder="What is your next Task?" class="form-control" id="name" @bind-Value="todoItem.ItemName" />
+    <EditForm Model="todoItem" OnSubmit="@AddItemToList" class="d-flex justify-content-center" style="margin: auto;">
         <div class="input-group-append">
-            <span class="input-group-text">
-                <InputText class="form-control" type="date" @bind-Value="itemDate" />
-                <InputText class="form-control" type="time" @bind-Value="itemTime" />
+            <span class="input-group-text" style="border-radius: 20px; background:#8e2de2; border: 0px white solid; height: 70px; gap: 20px;">
+                <InputText style="width: 650px;" placeholder="What is your next task?" class="form-control" id="ItemNameTextField" @bind-Value="todoItem.ItemName" />
+                <InputText class="form-control TodoInput" type="date" style="width: 150px;" @bind-Value="itemDate" />
+                <InputText class="form-control TodoInput" type="time" style="width: 120px;" @bind-Value="itemTime" />
             </span>
         </div>
-        <button class ="btn btn-primary" type="submit">Submit</button>
+        <button style="margin-left: 20px;" class ="btn btn-primary" type="submit">Submit</button>
     </EditForm>
 
     @* Displaying the data *@
