@@ -31,10 +31,22 @@
                 @foreach (TodoItem todoListData in TodoList)
                 {
                     <tr>
-                        <td>@todoListData.ItemName</td>
-                        <td style="width: 230px !important; font-size: 19px;">@todoListData.ItemTime</td>
-                        <td><button class="btn btn-primary" @onclick="EditItemFromList">Edit</button></td>
-                        <td><button class="btn btn-primary" @onclick="() => RemoveItemFromList(todoListData)">Remove</button></td>
+                        @if (editingId != todoListData.Id)
+                        {
+                            <td>@todoListData.ItemName</td>
+                            <td style="width: 230px !important; font-size: 19px;">@todoListData.ItemTime</td>
+                            <td><button class="btn btn-primary" @onclick="() => EditItemFromList(todoListData)">Edit</button></td>
+                            <td><button class="btn btn-primary" @onclick="() => RemoveItemFromList(todoListData)">Remove</button></td>
+                        } else
+                        {
+                            <td>
+                                <InputText placeholder="Item Name" class="form-control" id="name" @bind-Value="@todoListData.ItemName"></InputText>
+                            </td>
+                            <td style="width: 230px !important; font-size: 19px;">@todoListData.ItemTime</td>
+
+                            <td><button class="btn btn-primary" @onclick="UpdateItemFromEditMode">Save</button></td>
+                            <td><button class="btn btn-primary" @onclick="CancelItemFromEditMode">Cancel</button></td>
+                        }
                     </tr>
                 }
             </tbody>
@@ -51,7 +63,7 @@
     // Storing the time into a string to be later then converted back into DateTime 
     private string itemTime;
     private string itemDate;
-
+    int editingId;
     private List<TodoItem> TodoList = new List<TodoItem>();
     /* This gets called when the components are initialized */
     protected override void OnInitialized()
@@ -83,12 +95,18 @@
         TodoList = TodoManager.getAllItems();
         todoItem = new TodoItem(); // Reseting the new Item to empty again
     }
-    private void EditItemFromList()
+    private void EditItemFromList(TodoItem data)
     {
-        
+        editingId = data.Id;
     }
-
+    private void UpdateItemFromEditMode()
+    {
+        editingId = 0;
+    }
+    private void CancelItemFromEditMode()
+    {
+        editingId = 0;
+    }
 }
-
 
 
