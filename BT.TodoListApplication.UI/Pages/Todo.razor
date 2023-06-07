@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/pages/todo.css">
 </head>
 <body>
-    <h1>Bhuwan's Todo</h1>
+    <h1 id="heading_purple">Bhuwan's Todo</h1>
     @* Text Field to get data and then set it in the object created below *@
 
     <EditForm Model="todoItem" OnSubmit="@AddItemToList" class="d-flex justify-content-center" style=" gap: 40px; max-width: 1000px; margin: auto;">
@@ -31,7 +31,7 @@
                 {
                     <tr>
                         <td>@todoListData.ItemName</td>
-                        <td style="width: 210px !important; font-size: 19px;">@todoListData.ItemTime</td>
+                        <td style="width: 230px !important; font-size: 19px;">@todoListData.ItemTime</td>
                         <td><button class="btn btn-primary" @onclick="() => RemoveItemFromList(todoListData)">Remove</button></td>
                     </tr>
                 }
