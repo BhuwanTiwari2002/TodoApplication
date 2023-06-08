@@ -13,8 +13,25 @@
     overflow: hidden;
 }
 
+#button_purple {
+    background-color: #8e2de2;
+    border: none;
+    padding: 13px 34px;
+    border-radius: 8px;
+    max-height: 50px;
+    color:white !important;
+    margin-top: 0.5%;
+    cursor: pointer;
+    transition: all 0.5s ease 0s;
+}
+#button_purple:hover {
+    background-color: rgba(203, 195, 227, 2);
+    color: black !important;
+}
+
+
 #todo_table {
-    max-width: 1000px;
+    max-width: 80%;
     border-radius: 20px;
     margin: auto;
     text-align: center;
@@ -68,4 +85,10 @@ tr:nth-child(even) {
 #ItemNameTextField {
     border: 0px solid white !important;
     background: #8e2de2;
+    color: white;
 }
+
+#ItemNameTextField:focus {
+   color: white;
+}
+
