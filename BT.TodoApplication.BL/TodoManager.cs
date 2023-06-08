@@ -16,11 +16,32 @@ namespace BT.TodoListApplication.BL
                 var dataTable = databaseHelper.sendSQLCommand("SELECT * FROM TodoList;");
                 foreach (DataRow dataRow in dataTable.Rows)
                 {
-                    TodoItem item = new TodoItem(int.Parse(dataRow["Id"].ToString()), dataRow["ItemName"].ToString(), dataRow["ItemDescription"].ToString(), DateTime.Parse(dataRow["ItemTime"].ToString()));
+                    // TodoItem item = new TodoItem(int.Parse(dataRow["Id"].ToString()), dataRow["ItemName"].ToString(), dataRow["ItemDescription"].ToString(), DateTime.Parse(dataRow["ItemTime"].ToString()), int.Parse(dataRow["UserId"].ToString()));
+                    TodoItem item = new TodoItem(int.Parse(dataRow["Id"].ToString()), dataRow["ItemName"].ToString(), dataRow["ItemDescription"].ToString(), DateTime.Parse(dataRow["ItemTime"].ToString()), dataRow["UserId"].ToString());
                     items.Add(item);
                 }
                 return items;
             } catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static List<TodoItem> getItemsByUserId(string UserId)
+        {
+            List<TodoItem> items = new List<TodoItem>();
+            try
+            {
+                DatabaseHelper databaseHelper = new DatabaseHelper();
+                var dataTable = databaseHelper.sendSQLCommand($"SELECT * FROM TodoList WHERE UserId = '{UserId}';");
+                foreach (DataRow dataRow in dataTable.Rows)
+                {
+                    TodoItem item = new TodoItem(int.Parse(dataRow["Id"].ToString()), dataRow["ItemName"].ToString(), dataRow["ItemDescription"].ToString(), DateTime.Parse(dataRow["ItemTime"].ToString()),UserId);
+                    items.Add(item);
+                }
+                return items;
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -32,8 +53,8 @@ namespace BT.TodoListApplication.BL
             {
                 DatabaseHelper databaseHelper = new DatabaseHelper();   
                 var dataTable = databaseHelper.sendSQLCommand("INSERT INTO TodoList " +
-                                                              "(ItemName, ItemDescription,ItemTime) " +
-                                                              $"VALUES ('{item.ItemName}','{item.ItemDescription}','{item.ItemTime}');");
+                                                              "(ItemName, ItemDescription,ItemTime, UserId) " +
+                                                              $"VALUES ('{item.ItemName}','{item.ItemDescription}','{item.ItemTime}','{item.UserId}');");
                 return 1;
             } catch(Exception ex) {
                 throw ex;

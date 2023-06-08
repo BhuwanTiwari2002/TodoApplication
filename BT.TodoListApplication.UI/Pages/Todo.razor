@@ -1,7 +1,13 @@
 ﻿@page "/todo"
+@*This ensures that no one can access this page without autorization*@
+@attribute [Authorize] 
 @using BT.TodoListApplication.BL;
 @using BT.TodoListApplication.BL.Models;
 @using BT.TodoListApplication.DB.Helper;
+@using System.Security.Claims;
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+
 
 <head>
     <link rel="stylesheet" href="./css/pages/todo.css">
@@ -61,6 +67,10 @@
 
 @code {
     // C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\
+    //int Id = HttpContextAccessor.HttpContext?.Items["User"];
+
+    public ClaimsPrincipal User => HttpContextAccessor.HttpContext?.User;
+    public string Id => User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
     // Making a model so that the EditForm can use it
     TodoItem todoItem = new TodoItem();
@@ -72,7 +82,8 @@
     /* This gets called when the components are initialized */
     protected override void OnInitialized()
     {
-        TodoList = TodoManager.getAllItems();
+        //TodoList = TodoManager.getAllItems();
+        TodoList = TodoManager.getItemsByUserId(Id);
         if(!(TodoList.Count > 0))
         {
             TodoList.Add(new TodoItem("Mango"));
@@ -97,6 +108,7 @@
             todoItem.ItemDescription = "Test";
             TimeSpan timeSpan = TimeSpan.Parse(itemTime);
             todoItem.ItemTime = DateTime.Parse(itemDate).Date.Add(timeSpan);
+            todoItem.UserId = Id;
             TodoManager.insertItem(todoItem);
             TodoList = TodoManager.getAllItems();
             todoItem = new TodoItem(); // Reseting the new Item to empty again
