@@ -84,20 +84,15 @@
     {
         //TodoList = TodoManager.getAllItems();
         TodoList = TodoManager.getItemsByUserId(Id);
-        if(!(TodoList.Count > 0))
-        {
-            TodoList.Add(new TodoItem("Mango"));
-            TodoList.Add(new TodoItem("Apple"));
-            TodoList.Add(new TodoItem("Momo"));
-            TodoList.Add(new TodoItem("ChowMein"));
-        }
     }
     private void RemoveItemFromList(TodoItem data)
     {
         try {
             TodoManager.deleteItem(data);
-            TodoList = TodoManager.getAllItems();
-        } catch(Exception ex) {
+            TodoList = TodoManager.getItemsByUserId(Id);
+        }
+        catch (Exception ex)
+        {
             throw ex;
         }
     }
@@ -106,11 +101,18 @@
         try
         {
             todoItem.ItemDescription = "Test";
-            TimeSpan timeSpan = TimeSpan.Parse(itemTime);
-            todoItem.ItemTime = DateTime.Parse(itemDate).Date.Add(timeSpan);
+
+            if (!(itemTime == null & itemDate == null))
+            {
+                TimeSpan timeSpan = TimeSpan.Parse(itemTime);
+                todoItem.ItemTime = DateTime.Parse(itemDate).Date.Add(timeSpan);
+            } else
+            {
+                todoItem.ItemTime = DateTime.Now;
+            }
             todoItem.UserId = Id;
             TodoManager.insertItem(todoItem);
-            TodoList = TodoManager.getAllItems();
+            TodoList = TodoManager.getItemsByUserId(Id);
             todoItem = new TodoItem(); // Reseting the new Item to empty again
         } catch(Exception ex)
         {
@@ -128,8 +130,10 @@
         {
             TodoManager.updateItem(data);
             editingId = 0;
-            TodoList = TodoManager.getAllItems();
-        } catch(Exception ex) {
+            TodoList = TodoManager.getItemsByUserId(Id);
+        }
+        catch (Exception ex)
+        {
             throw ex;
         }
 
