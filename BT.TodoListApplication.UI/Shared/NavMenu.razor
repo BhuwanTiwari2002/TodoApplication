@@ -15,24 +15,34 @@
 *@            <Authorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> To Do List
+                        <span class="oi oi-home" aria-hidden="true"></span> Home
                     </NavLink>
                 </div>
                 <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Identity/Account/Logout" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Logout
+                    <NavLink class="nav-link" href="/Todo" Match="NavLinkMatch.All">
+                        Todo
                     </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <form method="post" action="Identity/Account/Logout">
+                        <button type="submit" class="nav-link btn btn-link">Log out</button>
+                    </form>
                 </div>
             </Authorized>
             <NotAuthorized>
                 <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Home
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Identity/Account/Login" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Login
+                        Login
                     </NavLink>
                 </div>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Identity/Account/Register" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Sign up
+                        Logout
                     </NavLink>
                 </div>
             </NotAuthorized>

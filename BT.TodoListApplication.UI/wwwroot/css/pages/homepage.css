@@ -1,0 +1,31 @@
+﻿body {
+    color: white;
+}
+
+#homepage_heading_purple {
+    text-align: center;
+    font-size: 35px;
+    font-weight: 700;
+    letter-spacing: -px;
+    line-height: 112px;
+    color: #CC8899;
+}
+
+#homepage_heading_three {
+    margin: auto;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 40px;
+    width: 70%;
+}
+
+#homepage_paragraph {
+    width: 70%;
+    margin: auto;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 40px;
+}
