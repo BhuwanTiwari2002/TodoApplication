@@ -5,65 +5,66 @@
 @using BT.TodoListApplication.BL.Models;
 @using BT.TodoListApplication.DB.Helper;
 @using System.Security.Claims;
-
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
 
+<html>
+    <head>
+        <link rel="stylesheet" href="./css/pages/todo.css">
+    </head>
+    <body>
+        <h1 id="heading_purple">Bhuwan's Todo</h1>
+        @* Text Field to get data and then set it in the object created below *@
+        <EditForm Model="todoItem" OnSubmit="@AddItemToList" class="d-flex justify-content-center" style="margin: auto;">
+            <div class="input-group-append">
+                <span class="input-group-text" style="border-radius: 20px; background:#8e2de2; border: 0px white solid; height: 70px; gap: 20px;">
+                    <InputText style="width: 600px;" placeholder="What is your next task?" class="form-control" id="ItemNameTextField" @bind-Value="todoItem.ItemName" />
+                    <InputText class="form-control TodoInput" type="date" style="width: 170px;" @bind-Value="itemDate" />
+                    <InputText class="form-control TodoInput" type="time" style="width: 150px;" @bind-Value="itemTime" />
+                </span>
+            </div>
+            <button style="margin-left: 20px;" id="button_purple" type="submit">Submit</button>
+        </EditForm>
 
-<head>
-    <link rel="stylesheet" href="./css/pages/todo.css">
-</head>
-<body>
-    <h1 id="heading_purple">Bhuwan's Todo</h1>
-    @* Text Field to get data and then set it in the object created below *@
-
-    <EditForm Model="todoItem" OnSubmit="@AddItemToList" class="d-flex justify-content-center" style="margin: auto;">
-        <div class="input-group-append">
-            <span class="input-group-text" style="border-radius: 20px; background:#8e2de2; border: 0px white solid; height: 70px; gap: 20px;">
-                <InputText style="width: 600px;" placeholder="What is your next task?" class="form-control" id="ItemNameTextField" @bind-Value="todoItem.ItemName" />
-                <InputText class="form-control TodoInput" type="date" style="width: 170px;" @bind-Value="itemDate" />
-                <InputText class="form-control TodoInput" type="time" style="width: 150px;" @bind-Value="itemTime" />
-            </span>
-        </div>
-        <button style="margin-left: 20px;" id="button_purple" type="submit">Submit</button>
-    </EditForm>
-
-    @* Displaying the data *@
-    <div id="todo-table-parent" >
-        <table class="table bg-light" id="todo_table">
-            <thead>
-                <tr>
-                    <th scope="col">Item Name</th>
-                    <th style="width: 0px;">Dates</th>
-                    <th style="width: 10px;"></th>
-                    <th style="width: 0px;"></th>
-                </tr>
-            </thead>
-            <tbody> 
-                @foreach (TodoItem todoListData in TodoList)
-                {
+        @* Displaying the data *@
+        <div id="todo-table-parent">
+            <table class="table bg-light" id="todo_table">
+                <thead>
                     <tr>
-                        @if (editingId != todoListData.Id)
-                        {
-                            <td>@todoListData.ItemName</td>
-                            <td style="width: 230px !important; font-size: 19px;">@todoListData.ItemTime</td>
-                            <td><button class="btn btn-primary" @onclick="() => EditItemFromList(todoListData)">Edit</button></td>
-                            <td><button class="btn btn-primary" @onclick="() => RemoveItemFromList(todoListData)">Remove</button></td>
-                        } else
-                        {
-                            <td>
-                                <InputText placeholder="Item Name" style="font-size: 25px;" class="form-control" id="name" @bind-Value="@todoListData.ItemName"></InputText>
-                            </td>
-                            <td style="width: 230px !important; font-size: 19px;">@todoListData.ItemTime</td>
-                            <td><button class="btn btn-primary" @onclick="() => UpdateItemFromEditMode(todoListData)">Save</button></td>
-                            <td><button class="btn btn-primary" @onclick="CancelItemFromEditMode">Cancel</button></td>
-                        }
+                        <th scope="col">Item Name</th>
+                        <th style="width: 0px;">Dates</th>
+                        <th style="width: 10px;"></th>
+                        <th style="width: 0px;"></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    
-</body>
+                </thead>
+                <tbody>
+                    @foreach (TodoItem todoListData in TodoList)
+                    {
+                        <tr>
+                            @if (editingId != todoListData.Id)
+                            {
+                                <td>@todoListData.ItemName</td>
+                                <td style="width: 230px !important; font-size: 19px;">@todoListData.ItemTime</td>
+                                <td><button class="btn btn-primary" @onclick="() => EditItemFromList(todoListData)">Edit</button></td>
+                                <td><button class="btn btn-primary" @onclick="() => RemoveItemFromList(todoListData)">Remove</button></td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <InputText placeholder="Item Name" style="font-size: 25px;" class="form-control" id="name" @bind-Value="@todoListData.ItemName"></InputText>
+                                </td>
+                                <td style="width: 230px !important; font-size: 19px;">@todoListData.ItemTime</td>
+                                <td><button class="btn btn-primary" @onclick="() => UpdateItemFromEditMode(todoListData)">Save</button></td>
+                                <td><button class="btn btn-primary" @onclick="CancelItemFromEditMode">Cancel</button></td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </body>
+</html>
+
 
 @code {
     // C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\

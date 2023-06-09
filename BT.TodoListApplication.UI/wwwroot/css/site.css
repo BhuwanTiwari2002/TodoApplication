@@ -3,7 +3,8 @@
 
 html, body {
     font-family: 'Montserrat','Helvetica Neue', Helvetica, Arial, sans-serif;
-    background: black;
+    background: black !important;
+    background-color: black !important;
 }
 
 h1:focus {

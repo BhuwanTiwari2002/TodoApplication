@@ -1,0 +1,106 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Todo App Login";
+}
+
+<h1>@ViewData["Title"]</h1>
+<html>
+    <body>
+        <div class="row">
+            <div class="col-md">
+                <section>
+                <form style="font-size: 20px !important;"  id="account" method="post">
+                        <hr />
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                            <label asp-for="Input.Email" class="form-label">Email</label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                            <label asp-for="Input.Password" class="form-label">Password</label>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="checkbox mb-3">
+                            <label asp-for="Input.RememberMe" class="form-label">
+                                <input class="form-check-input" asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                        <div>
+                            <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                        </div>
+                        <div>
+                            <p>
+                                <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                            </p>
+                            <p>
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                            </p>
+                            <p>
+                                <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                            </p>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </body>
+</html>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+<style>
+
+    body {
+        background: black;
+        color:white;
+        overflow: hidden;
+    }
+
+    .login-form {
+        width: 340px;
+        margin: 100px auto;
+        font-size: 15px;
+    }
+
+
+        .login-form form {
+            margin-bottom: 15px;
+            background: #ffffff;
+            box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+
+    .form-control, .btn {
+        min-height: 45px;
+        border-radius: 20px;
+    }
+
+    .form-label {
+        color: black !important;
+        font-size: 20px;
+    }
+
+    .form-label:last-child {
+        color: white !important;
+    }
+
+    .btn {
+        font-size: 25px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+    }
+
+    .login-form .title {
+        font-size: 30px;
+        font-weight: 700;
+        font-family: verdana;
+    }
+</style>
