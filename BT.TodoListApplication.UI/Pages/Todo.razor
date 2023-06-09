@@ -19,8 +19,8 @@
     <EditForm Model="todoItem" OnSubmit="@AddItemToList" class="d-flex justify-content-center" style="margin: auto;">
         <div class="input-group-append">
             <span class="input-group-text" style="border-radius: 20px; background:#8e2de2; border: 0px white solid; height: 70px; gap: 20px;">
-                <InputText style="width: 650px;" placeholder="What is your next task?" class="form-control" id="ItemNameTextField" @bind-Value="todoItem.ItemName" />
-                <InputText class="form-control TodoInput" type="date" style="width: 150px;" @bind-Value="itemDate" />
+                <InputText style="width: 600px;" placeholder="What is your next task?" class="form-control" id="ItemNameTextField" @bind-Value="todoItem.ItemName" />
+                <InputText class="form-control TodoInput" type="date" style="width: 170px;" @bind-Value="itemDate" />
                 <InputText class="form-control TodoInput" type="time" style="width: 150px;" @bind-Value="itemTime" />
             </span>
         </div>

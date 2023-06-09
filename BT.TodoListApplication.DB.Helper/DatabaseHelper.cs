@@ -10,7 +10,9 @@ namespace BT.TodoListApplication.DB.Helper
         {
             try
             {
-                string connectionString = "Data Source=GBT-120402-L;Initial Catalog=TodoApp;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+                //string connectionString = "Data Source=GBT-120402-L;Initial Catalog=TodoApp;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+                string connectionString = "Data Source=(localdb)\\ProjectModels;Initial Catalog=TodoApp;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 SqlCommand sqlCommand = new SqlCommand(command, sqlConnection);
                 // Keeps track of the different SQL Data (Like changes in the tables) -- Opens the sqlConnection
