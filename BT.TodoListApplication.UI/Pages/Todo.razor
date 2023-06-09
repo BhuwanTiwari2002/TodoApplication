@@ -24,7 +24,6 @@
             </div>
             <button style="margin-left: 20px;" id="button_purple" type="submit">Submit</button>
         </EditForm>
-
         @* Displaying the data *@
         <div id="todo-table-parent">
             <table class="table bg-light" id="todo_table">
@@ -42,9 +41,24 @@
                         <tr>
                             @if (editingId != todoListData.Id)
                             {
-                                <td>@todoListData.ItemName</td>
+                                
+                                    @if(todoListData.isChecked.Equals("true"))
+                                    {
+                                        <td>
+                                             <input type="checkbox" class="form-check-input border-2" id="todoCheckbox" @onchange="() => UpdateCheckedFromEditMode(todoListData)" checked>
+                                             <label style="margin-left: 5px;" for="checkbox">@todoListData.ItemName</label>
+                                        </td>
+                                    } else
+                                    {
+                                        <td>
+                                            <input type="checkbox" class="form-check-input border-2" id="todoCheckbox" @onchange="() => UpdateCheckedFromEditMode(todoListData)">
+                                            <label style="margin-left: 5px;" for="checkbox">@todoListData.ItemName</label>
+                                        </td>
+                                    }
+
+                                @*<td>@todoListData.ItemName</td>*@
                                 <td style="width: 230px !important; font-size: 19px;">@todoListData.ItemTime</td>
-                                <td><button class="btn btn-primary" @onclick="() => EditItemFromList(todoListData)">Edit</button></td>
+                                <td><button class="btn btn-primary" @onclick="() => EditItemFromList(todoListData.Id)">Edit</button></td>
                                 <td><button class="btn btn-primary" @onclick="() => RemoveItemFromList(todoListData)">Remove</button></td>
                             }
                             else
@@ -69,7 +83,7 @@
 @code {
     // C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\
     //int Id = HttpContextAccessor.HttpContext?.Items["User"];
-
+    bool test = true;
     public ClaimsPrincipal User => HttpContextAccessor.HttpContext?.User;
     public string Id => User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -121,9 +135,9 @@
         }
 
     }
-    private void EditItemFromList(TodoItem data)
+    private void EditItemFromList(int data)
     {
-        editingId = data.Id;
+        editingId = data;
     }
     private void UpdateItemFromEditMode(TodoItem data)
     {
@@ -131,6 +145,27 @@
         {
             TodoManager.updateItem(data);
             editingId = 0;
+            TodoList = TodoManager.getItemsByUserId(Id);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+
+    private void UpdateCheckedFromEditMode(TodoItem data)
+    {
+        try
+        {
+            if(data.isChecked.Equals("true"))
+            {
+                data.isChecked = "false";
+            } else
+            {
+                data.isChecked = "true";
+            }
+            TodoManager.updateItem(data);
             TodoList = TodoManager.getItemsByUserId(Id);
         }
         catch (Exception ex)

@@ -17,7 +17,7 @@ namespace BT.TodoListApplication.BL
                 foreach (DataRow dataRow in dataTable.Rows)
                 {
                     // TodoItem item = new TodoItem(int.Parse(dataRow["Id"].ToString()), dataRow["ItemName"].ToString(), dataRow["ItemDescription"].ToString(), DateTime.Parse(dataRow["ItemTime"].ToString()), int.Parse(dataRow["UserId"].ToString()));
-                    TodoItem item = new TodoItem(int.Parse(dataRow["Id"].ToString()), dataRow["ItemName"].ToString(), dataRow["ItemDescription"].ToString(), DateTime.Parse(dataRow["ItemTime"].ToString()), dataRow["UserId"].ToString());
+                    TodoItem item = new TodoItem(int.Parse(dataRow["Id"].ToString()), dataRow["ItemName"].ToString(), dataRow["ItemDescription"].ToString(), DateTime.Parse(dataRow["ItemTime"].ToString()), dataRow["UserId"].ToString(), dataRow["IsChecked"].ToString());
                     items.Add(item);
                 }
                 return items;
@@ -36,7 +36,7 @@ namespace BT.TodoListApplication.BL
                 var dataTable = databaseHelper.sendSQLCommand($"SELECT * FROM TodoList WHERE UserId = '{UserId}';");
                 foreach (DataRow dataRow in dataTable.Rows)
                 {
-                    TodoItem item = new TodoItem(int.Parse(dataRow["Id"].ToString()), dataRow["ItemName"].ToString(), dataRow["ItemDescription"].ToString(), DateTime.Parse(dataRow["ItemTime"].ToString()),UserId);
+                    TodoItem item = new TodoItem(int.Parse(dataRow["Id"].ToString()), dataRow["ItemName"].ToString(), dataRow["ItemDescription"].ToString(), DateTime.Parse(dataRow["ItemTime"].ToString()),UserId, dataRow["IsChecked"].ToString());
                     items.Add(item);
                 }
                 return items;
@@ -53,8 +53,8 @@ namespace BT.TodoListApplication.BL
             {
                 DatabaseHelper databaseHelper = new DatabaseHelper();   
                 var dataTable = databaseHelper.sendSQLCommand("INSERT INTO TodoList " +
-                                                              "(ItemName, ItemDescription,ItemTime, UserId) " +
-                                                              $"VALUES ('{item.ItemName}','{item.ItemDescription}','{item.ItemTime}','{item.UserId}');");
+                                                              "(ItemName, ItemDescription,ItemTime, UserId, isChecked) " +
+                                                              $"VALUES ('{item.ItemName}','{item.ItemDescription}','{item.ItemTime}','{item.UserId}', '{item.isChecked}');");
                 return 1;
             } catch(Exception ex) {
                 throw ex;
@@ -78,7 +78,7 @@ namespace BT.TodoListApplication.BL
             {
                 DatabaseHelper databaseHelper = new DatabaseHelper();
                 var dataTable = databaseHelper.sendSQLCommand("UPDATE TodoList SET ItemName = " +
-                                                              $"'{item.ItemName}' WHERE ${item.Id} = Id;");
+                                                              $"'{item.ItemName}', isChecked = '{item.isChecked}' WHERE ${item.Id} = Id;");
                 return 1;
             } catch(Exception ex)
             {
