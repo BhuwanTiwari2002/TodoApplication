@@ -1,0 +1,10 @@
+﻿section {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    color: white;
+}
+
+section > div { /*Section for each grid*/
+    border: 1px solid white;
+    padding: 10px;
+}

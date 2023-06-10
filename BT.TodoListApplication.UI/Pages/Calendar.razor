@@ -3,8 +3,16 @@
 <html>
     <body>
         <h3>@MonthName</h3>
+        <button @onclick="() => { monthsAway--; CreateMonth(); }">Previous Month</button>
+        <h1>@MonthName</h1>
+    <button @onclick="() => { monthsAway++; CreateMonth(); }">Next Month</button>
         <section>
-        @for (int day = 1; day <= monthEnd.Day; day++)
+            @for (int dummyCol = 0; dummyCol < numberOfDummyColumn; dummyCol++)
+            {
+                <div></div>
+            }
+
+            @for (int day = 1; day <= monthEnd.Day; day++)
             {
                 <div>@day</div>
             }
@@ -12,12 +20,24 @@
     </body>
 </html>
 
-    @code {
+@code {
     string MonthName = "";
     DateTime monthEnd;
+    int numberOfDummyColumn = 0;
+    int monthsAway = 0;
     protected override void OnInitialized()
     {
-        DateTime monthStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1); //2023 June 1
+        CreateMonth();
+    }
+
+    void CreateMonth()
+    {
+        int year = DateTime.Now.Year;
+        int month = DateTime.Now.Month + monthsAway;
+        var tempDate = DateTime.Now.AddMonths(monthsAway);
+        month = tempDate.Month;
+        year = tempDate.Year;
+        DateTime monthStart = new DateTime(DateTime.Now.Year + year, month, 1); //2023 June 1
         monthEnd = monthStart.AddMonths(1).AddDays(-1); // Add a whole month but subtract one which gives the end of the month
         MonthName = monthStart.Month switch
         {
@@ -35,5 +55,7 @@
             12 => "December",
             _ => "" // Default case
         };
+
+        numberOfDummyColumn = (int)monthStart.DayOfWeek; // If it is tueday, give us 2
     }
 }
