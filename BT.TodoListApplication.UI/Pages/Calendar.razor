@@ -1,4 +1,8 @@
 ﻿@page "/calendar"
+@using BT.TodoListApplication.BL;
+@using System.Security.Claims;
+@using BT.TodoListApplication.BL.Models;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
 @attribute [Authorize]
 <html>
     <body>
@@ -16,7 +20,14 @@
                 {
                     <div style="position: relative;">
                         @if (currentDay != day) {
-                            <div id="calendar_day">@day</div>
+                        @foreach(TodoItem item in TodoList)
+                        {
+                            @if(item.ItemTime.Day == day)
+                            {
+                                <p>@item.ItemName</p>
+                            }
+                    }
+                    <div id="calendar_day">@day</div>
                         } else {
                             <div id="calendar_day_currentday">@day</div>
                         }
@@ -27,13 +38,17 @@
 </html>
 
 @code {
+    public ClaimsPrincipal User => HttpContextAccessor.HttpContext?.User;
+    public string Id => User?.FindFirstValue(ClaimTypes.NameIdentifier);
     string MonthName = "";
     DateTime monthEnd;
     int numberOfDummyColumn = 0;
     int monthsAway = 0;
+    private List<TodoItem> TodoList = new List<TodoItem>();
     int currentDay = DateTime.Now.Day;
     protected override void OnInitialized()
     {
+        TodoList = TodoManager.getItemsByUserId(Id);
         CreateMonth();
     }
 
