@@ -2,20 +2,26 @@
 @attribute [Authorize]
 <html>
     <body>
-        <h3>@MonthName</h3>
-        <button @onclick="() => { monthsAway--; CreateMonth(); }">Previous Month</button>
-        <h1>@MonthName</h1>
-    <button @onclick="() => { monthsAway++; CreateMonth(); }">Next Month</button>
+        <div id="calendar_button_group">
+            <button id="button_purple" @onclick="() => { monthsAway--; CreateMonth(); }">Previous Month</button>
+            <h1>@MonthName</h1>
+            <button id="button_purple" @onclick="() => { monthsAway++; CreateMonth(); }">Next Month</button>
+        </div>
         <section>
-            @for (int dummyCol = 0; dummyCol < numberOfDummyColumn; dummyCol++)
-            {
-                <div></div>
-            }
-
-            @for (int day = 1; day <= monthEnd.Day; day++)
-            {
-                <div>@day</div>
-            }
+                @for (int dummyCol = 0; dummyCol <= numberOfDummyColumn; dummyCol++)
+                {
+                    <div></div>
+                }
+                @for (int day = 1; day <= monthEnd.Day; day++)
+                {
+                    <div style="position: relative;">
+                        @if (currentDay != day) {
+                            <div id="calendar_day">@day</div>
+                        } else {
+                            <div id="calendar_day_currentday">@day</div>
+                        }
+                    </div>
+                }
         </section>
     </body>
 </html>
@@ -25,6 +31,7 @@
     DateTime monthEnd;
     int numberOfDummyColumn = 0;
     int monthsAway = 0;
+    int currentDay = DateTime.Now.Day;
     protected override void OnInitialized()
     {
         CreateMonth();

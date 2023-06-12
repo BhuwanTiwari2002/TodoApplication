@@ -5,6 +5,54 @@
 }
 
 section > div { /*Section for each grid*/
-    border: 1px solid white;
-    padding: 10px;
+    border: 2px solid purple;
+    padding: 50px;
+}
+
+#button_purple {
+    background-color: #8e2de2;
+    border: none;
+    padding: 13px 34px;
+    border-radius: 8px;
+    max-height: 50px;
+    color: white !important;
+    cursor: pointer;
+    transition: all 0.5s ease 0s;
+}
+
+    #button_purple:hover {
+        background-color: rgba(203, 195, 227, 2);
+        color: black !important;
+    }
+
+h1 {
+    color: white;
+    font-size: 25px;
+}
+
+#calendar_button_group {
+    margin: 5%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+#calendar_day {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    text-align: center;
+}
+#calendar_day_currentday {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: red;
+    text-align: center;
 }
