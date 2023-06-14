@@ -20,16 +20,22 @@
                 {
                     <div style="position: relative;">
                         @if (currentDay != day) {
-                        @foreach(TodoItem item in TodoList)
-                        {
-                            @if(item.ItemTime.Day == day)
+                            @foreach(TodoItem item in TodoList)
                             {
-                                <p>@item.ItemName</p>
+                                @if(item.ItemTime.Day == day && item.ItemTime.Month == month)
+                                {
+                                    <p>@item.ItemName</p>
+                                }
                             }
-                    }
-                    <div id="calendar_day">@day</div>
+                        <div id="calendar_day">@day</div>
                         } else {
-                            <div id="calendar_day_currentday">@day</div>
+                            if(monthsAway == 0)
+                            {
+                                <div id="calendar_day_currentday">@day</div>
+                            } else
+                            {
+                                <div id="calendar_day">@day</div>
+                            }
                         }
                     </div>
                 }
@@ -38,14 +44,17 @@
 </html>
 
 @code {
-    public ClaimsPrincipal User => HttpContextAccessor.HttpContext?.User;
-    public string Id => User?.FindFirstValue(ClaimTypes.NameIdentifier);
+    /* Declaring the variables */
     string MonthName = "";
     DateTime monthEnd;
     int numberOfDummyColumn = 0;
     int monthsAway = 0;
+    int month = 0;
     private List<TodoItem> TodoList = new List<TodoItem>();
     int currentDay = DateTime.Now.Day;
+
+    public ClaimsPrincipal User => HttpContextAccessor.HttpContext?.User;
+    public string Id => User?.FindFirstValue(ClaimTypes.NameIdentifier);
     protected override void OnInitialized()
     {
         TodoList = TodoManager.getItemsByUserId(Id);
@@ -55,7 +64,7 @@
     void CreateMonth()
     {
         int year = DateTime.Now.Year;
-        int month = DateTime.Now.Month + monthsAway;
+        month = DateTime.Now.Month + monthsAway;
         var tempDate = DateTime.Now.AddMonths(monthsAway);
         month = tempDate.Month;
         year = tempDate.Year;
