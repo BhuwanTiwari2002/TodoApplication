@@ -24,7 +24,9 @@
                             {
                                 @if(item.ItemTime.Day == day && item.ItemTime.Month == month)
                                 {
-                                    <p>@item.ItemName</p>
+                                    <div class="calendar_item_parent">
+                                        <span>@item.ItemName</span>
+                                    </div>
                                 }
                             }
                         <div id="calendar_day">@day</div>
