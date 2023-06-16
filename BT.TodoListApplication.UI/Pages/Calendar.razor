@@ -26,10 +26,12 @@
                                 {
                                     <div class="calendar_item_parent" @onclick="() => ShowItemDetails(item)">
                                         <a>@item.ItemName</a>
-                                        <div class="@tempClassOnItemDetail">
-                                            <p>@item.ItemDescription</p>
-                                            <p>@item.ItemTime</p>
-                                        </div>
+                                        @if (ItemId == item.Id)
+                                        {
+                                            <div class="@tempClassOnItemDetail">
+                                                <p>@item.ItemDescription <br /> @item.ItemTime</p>
+                                            </div>
+                                        }
                                     </div>
                                 }
                             }
@@ -53,6 +55,7 @@
     /* Declaring the variables */
     string MonthName = "";
     string tempClassOnItemDetail = "";
+    int ItemId = 0;
     DateTime monthEnd;
     int numberOfDummyColumn = 0;
     int monthsAway = 0;
@@ -68,6 +71,7 @@
         TodoList = TodoManager.getItemsByUserId(Id);
         CreateMonth();
         tempClassOnItemDetail = "HideItemDetails";
+        ItemId = 0;
     }
     void CreateMonth()
     {
@@ -102,9 +106,11 @@
         if (tempClassOnItemDetail.Equals("ShowItemDetails"))
         {
             tempClassOnItemDetail = "HideItemDetails";
+            ItemId = 0;
         } else
         {
             tempClassOnItemDetail = "ShowItemDetails";
+            ItemId = data.Id;
         }
     }
 
