@@ -80,11 +80,11 @@ h1 {
         list-style-type: none;
     }
 
-.HideItemDetails p {
+.HideItemDetails {
     display: none;
 }
 
-#ShowItemDetails {
+.ShowItemDetails {
     display: block;
     height: 200px;
 }

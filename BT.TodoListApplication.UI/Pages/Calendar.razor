@@ -24,9 +24,9 @@
                             {
                                 @if(item.ItemTime.Day == day && item.ItemTime.Month == month && item.ItemTime.Year == year)
                                 {
-                                    <div class="calendar_item_parent">
+                                    <div class="calendar_item_parent" @onclick="() => ShowItemDetails(item)">
                                         <a>@item.ItemName</a>
-                                        <div class="@tempClassOnItemDetail" @onclick="() => ShowItemDetails(item)">
+                                        <div class="@tempClassOnItemDetail">
                                             <p>@item.ItemDescription</p>
                                             <p>@item.ItemTime</p>
                                         </div>
@@ -65,9 +65,9 @@
     public string Id => User?.FindFirstValue(ClaimTypes.NameIdentifier);
     protected override void OnInitialized()
     {
-        tempClassOnItemDetail = "HideItemDetails";
         TodoList = TodoManager.getItemsByUserId(Id);
         CreateMonth();
+        tempClassOnItemDetail = "HideItemDetails";
     }
     void CreateMonth()
     {
@@ -102,7 +102,6 @@
         if (tempClassOnItemDetail.Equals("ShowItemDetails"))
         {
             tempClassOnItemDetail = "HideItemDetails";
-
         } else
         {
             tempClassOnItemDetail = "ShowItemDetails";
