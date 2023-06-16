@@ -32,8 +32,8 @@
                                                 <EditForm Model="todoItem" >
                                                     <InputText style="height: 20px" placeholder=" Item Description" class="form-control" id="name" @bind-Value="@item.ItemDescription"></InputText>
                                                     <p>@item.ItemTime</p>
+                                                    <button class="btn btn-primary" style="display: inline-block" @onclick="() => UpdateItemFromEditMode(item)">Save</button>
                                                  </EditForm>
-                                                <button class="btn btn-primary" @onclick="() => UpdateItemFromEditMode(item)">Save</button>
                                             </div>
                                         }
                                     </div>
