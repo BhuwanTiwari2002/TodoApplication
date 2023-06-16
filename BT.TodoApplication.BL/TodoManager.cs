@@ -78,7 +78,7 @@ namespace BT.TodoListApplication.BL
             {
                 DatabaseHelper databaseHelper = new DatabaseHelper();
                 var dataTable = databaseHelper.sendSQLCommand("UPDATE TodoList SET ItemName = " +
-                                                              $"'{item.ItemName}', isChecked = '{item.isChecked}' WHERE ${item.Id} = Id;");
+                                                              $"'{item.ItemName}', isChecked = '{item.isChecked}', ItemDescription = '{item.ItemDescription}' WHERE ${item.Id} = Id;");
                 return 1;
             } catch(Exception ex)
             {

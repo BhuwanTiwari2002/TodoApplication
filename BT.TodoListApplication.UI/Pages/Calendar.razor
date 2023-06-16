@@ -29,7 +29,11 @@
                                         @if (ItemId == item.Id)
                                         {
                                             <div class="@tempClassOnItemDetail">
-                                                <p>@item.ItemDescription <br /> @item.ItemTime</p>
+                                                <EditForm Model="todoItem" >
+                                                    <InputText style="height: 20px" placeholder=" Item Description" class="form-control" id="name" @bind-Value="@item.ItemDescription"></InputText>
+                                                    <p>@item.ItemTime</p>
+                                                 </EditForm>
+                                                <button class="btn btn-primary" @onclick="() => UpdateItemFromEditMode(item)">Save</button>
                                             </div>
                                         }
                                     </div>
@@ -55,6 +59,7 @@
     /* Declaring the variables */
     string MonthName = "";
     string tempClassOnItemDetail = "";
+    TodoItem todoItem = new TodoItem();
     int ItemId = 0;
     DateTime monthEnd;
     int numberOfDummyColumn = 0;
@@ -103,15 +108,28 @@
     }
     void ShowItemDetails(TodoItem data)
     {
-        if (tempClassOnItemDetail.Equals("ShowItemDetails"))
-        {
-            tempClassOnItemDetail = "HideItemDetails";
-            ItemId = 0;
-        } else
+        if (!(tempClassOnItemDetail.Equals("ShowItemDetails")))
         {
             tempClassOnItemDetail = "ShowItemDetails";
             ItemId = data.Id;
+        } else
+        {
+            ItemId = 0;
+            tempClassOnItemDetail = "HideItemDetails";
         }
+    }
+    private void UpdateItemFromEditMode(TodoItem data)
+    {
+        try
+        {
+            TodoManager.updateItem(data);
+            TodoList = TodoManager.getItemsByUserId(Id);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
     }
 
 }
