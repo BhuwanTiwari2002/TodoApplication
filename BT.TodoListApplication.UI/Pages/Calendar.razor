@@ -25,7 +25,11 @@
                                 @if(item.ItemTime.Day == day && item.ItemTime.Month == month && item.ItemTime.Year == year)
                                 {
                                     <div class="calendar_item_parent">
-                                        <span>@item.ItemName</span>
+                                        <a>@item.ItemName</a>
+                                        <div class="@tempClassOnItemDetail" @onclick="() => ShowItemDetails(item)">
+                                            <p>@item.ItemDescription</p>
+                                            <p>@item.ItemTime</p>
+                                        </div>
                                     </div>
                                 }
                             }
@@ -48,6 +52,7 @@
 @code {
     /* Declaring the variables */
     string MonthName = "";
+    string tempClassOnItemDetail = "";
     DateTime monthEnd;
     int numberOfDummyColumn = 0;
     int monthsAway = 0;
@@ -60,10 +65,10 @@
     public string Id => User?.FindFirstValue(ClaimTypes.NameIdentifier);
     protected override void OnInitialized()
     {
+        tempClassOnItemDetail = "HideItemDetails";
         TodoList = TodoManager.getItemsByUserId(Id);
         CreateMonth();
     }
-
     void CreateMonth()
     {
         year = DateTime.Now.Year;
@@ -92,4 +97,16 @@
 
         numberOfDummyColumn = (int)monthStart.DayOfWeek; // If it is tueday, give us 2
     }
+    void ShowItemDetails(TodoItem data)
+    {
+        if (tempClassOnItemDetail.Equals("ShowItemDetails"))
+        {
+            tempClassOnItemDetail = "HideItemDetails";
+
+        } else
+        {
+            tempClassOnItemDetail = "ShowItemDetails";
+        }
+    }
+
 }

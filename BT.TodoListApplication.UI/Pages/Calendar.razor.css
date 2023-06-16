@@ -34,6 +34,8 @@ h1 {
     font-size: 25px;
 }
 
+
+
 #calendar_button_group {
     margin: 5%;
     display: flex;
@@ -72,6 +74,21 @@ h1 {
     background-color: rgba(163,104,188,0.5);
     box-sizing: border-box;
 }
-    .calendar_item_parent span {
+    .calendar_item_parent a {
         font-size: 1.5vh;
+        text-decoration: none;
+        list-style-type: none;
     }
+
+.HideItemDetails p {
+    display: none;
+}
+
+#ShowItemDetails {
+    display: block;
+    height: 200px;
+}
+
+.ShowItemDetails p {
+    display: block;
+}
