@@ -19,7 +19,6 @@
                 @for (int day = 1; day <= monthEnd.Day; day++)
                 {
                     <div style="position: relative;">
-                        @if (currentDay != day) {
                             @foreach(TodoItem item in TodoList)
                             {
                                 @if(item.ItemTime.Day == day && item.ItemTime.Month == month && item.ItemTime.Year == year)
@@ -39,16 +38,18 @@
                                     </div>
                                 }
                             }
-                        <div id="calendar_day">@day</div>
-                        } else {
-                            if(monthsAway == 0)
+                            <div id="calendar_day">@day</div>
+                            @if (!(currentDay != day))
                             {
-                                <div id="calendar_day_currentday">@day</div>
-                            } else
-                            {
-                                <div id="calendar_day">@day</div>
+                                if (monthsAway == 0)
+                                {
+                                    <div id="calendar_day_currentday">@day</div>
+                                }
+                                else
+                                {
+                                    <div id="calendar_day">@day</div>
+                                }
                             }
-                        }
                     </div>
                 }
         </section>
